@@ -158,3 +158,45 @@ Vue에서는 조건부 렌더링을 위해 `v-if`와 `v-show` 두 가지를 제�
 <!-- v-show 예제 -->
 <p v-show="visible">이건 v-show로 보이는 문장입니다.</p>
 ```
+
+## ✅ export / import 문법
+
+어떤 javascript 파일에서 만든 **변수, 함수, 객체** 등을 다른 파일에서 **재사용**하고 싶을 때 사용하는 문법이다.
+
+### export default / import
+
+```js
+// oneroom.js
+var apple = 10;
+export default apple;
+```
+
+```js
+// App.vue 또는 다른 파일
+import 작명 from './oneroom.js'; // 작명 자유
+console.log(작명); // 10
+```
+
+- export default는 한 파일에 단 1번만 사용 가능
+- import할 때는 작명 자유
+
+### export {} / import {}
+
+```js
+// oneroom.js
+var apple = 10;
+var apple2 = 100;
+
+export { apple, apple2 };
+```
+
+```js
+// App.vue 또는 다른 파일
+import { apple, apple2 } from './oneroom.js';
+
+console.log(apple); // 10
+console.log(apple2); // 100
+```
+
+- export는 원하는 만큼 여러 번 사용 가능
+- import 할 때는 내보낸 이름과 똑같이 써야함

@@ -11,37 +11,26 @@
     <a v-for="(a, i) in menus" :key="i">{{ a }}</a>
   </div>
 
-  <div>
-    <img src="./assets/room0.jpg" class="room-img" />
-    <h4 @click="모달창열렸니 = true">{{ products[0] }}</h4>
-    <p>50 만원</p>
-    <button @click="신고수[0]++">허위매물신고</button>
-    <span> 신고수 : {{ 신고수[0] }}</span>
-  </div>
-  <div>
-    <img src="./assets/room1.jpg" class="room-img" />
-    <h4>{{ products[1] }}</h4>
-    <p>70 만원</p>
-    <button @click="신고수[1]++">허위매물신고</button>
-    <span> 신고수 : {{ 신고수[1] }}</span>
-  </div>
-  <div>
-    <img src="./assets/room2.jpg" class="room-img" />
-    <h4>{{ products[2] }}</h4>
-    <p>60 만원</p>
-    <button @click="신고수[2]++">허위매물신고</button>
-    <span> 신고수 : {{ 신고수[2] }}</span>
+  <div v-for="(room, i) in 원룸들" :key="i">
+    <img :src="room.image" class="room-img" />
+    <h4 @click="모달창열렸니 = true">{{ room.title }}</h4>
+    <p>{{ room.price }}원</p>
+    <button @click="신고수[i]++">허위매물신고</button>
+    <span> 신고수 : {{ 신고수[i] }}</span>
   </div>
 </template>
 
 <script>
+import data from './assets/oneroom.js';
+
 export default {
   name: 'App',
   data() {
     return {
       // Define any data properties here
+      원룸들: data,
       모달창열렸니: false,
-      신고수: [0, 0, 0],
+      신고수: [0, 0, 0, 0, 0, 0],
       menus: ['Home', 'Shop', 'About'],
       products: ['역삼동원룸', '천호동원룸', '마포구원룸'],
     };
