@@ -131,7 +131,39 @@ data() {
 
 클릭 이벤트를 통해 모달창이 열리도록 제어할 수 있다.
 
-## ✅ v-show vs v-if 차이점
+## ✅ v-if / v-else-if / v-else 문법
+
+Vue에서는 조건에 따라 HTML 요소를 보여줄지 말지를 결정할 때 `v-if`, `v-else-if`, `v-else` 를 사용한다.
+
+### v-if
+
+조건이 `true`일 때만 해당 요소를 **렌더링**한다.
+
+```html
+<p v-if="isLoggedIn">Welcome!</p>
+```
+
+### v-else-if
+
+앞선 v-if가 false일 때, 대체 조건을 검사한다. (일종의 else if)
+
+```html
+<p v-if="score >= 90">A score</p>
+<p v-else-if="score >= 80">B score</p>
+<p v-else-if="score >= 70">C score</p>
+```
+
+### v-else
+
+위의 v-if, v-else-if 조건이 모두 false일 경우 실행된다.
+
+```html
+<div v-if="age > 19">You are an adult.</div>
+<div v-else-if="age > 13">You are a teenager.</div>
+<div v-else>You are a child.</div>
+```
+
+## ✅ v-if vs v-show 차이점
 
 Vue에서는 조건부 렌더링을 위해 `v-if`와 `v-show` 두 가지를 제공한다.
 이 둘은 비슷해 보이지만 동작 방식이 다르다.
