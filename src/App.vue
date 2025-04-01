@@ -5,6 +5,7 @@
       <h4>{{ 원룸들[누른거].title }}</h4>
       <p>{{ 원룸들[누른거].content }}</p>
       <p>{{ 원룸들[누른거].price }}원</p>
+      <DiscountBanner />
       <button @click="모달창열렸니 = false">닫기</button>
     </div>
   </div>
@@ -12,6 +13,8 @@
   <div class="menu">
     <a v-for="(a, i) in menus" :key="i">{{ a }}</a>
   </div>
+
+  <DiscountBanner />
 
   <div v-for="(room, i) in 원룸들" :key="i">
     <img :src="room.image" class="room-img" />
@@ -31,6 +34,7 @@
 
 <script>
 import data from './assets/oneroom.js';
+import DiscountBanner from './DiscountBanner.vue';
 
 export default {
   name: 'App',
@@ -51,7 +55,9 @@ export default {
       this.신고수[0]++;
     },
   },
-  components: {},
+  components: {
+    DiscountBanner,
+  },
 };
 </script>
 
