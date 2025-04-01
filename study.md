@@ -232,3 +232,97 @@ console.log(apple2); // 100
 
 - export는 원하는 만큼 여러 번 사용 가능
 - import 할 때는 내보낸 이름과 똑같이 써야함
+
+## ✅ 컴포넌트(Component)
+
+- Vue 컴포넌트는 **UI를 재사용 가능한 단위로 나눈 조각**이다.
+- 하나의 컴포넌트는 자체적인 **HTML, CSS, JavaScript**를 포함할 수 있고, 이들을 조합해 복잡한 UI를 구성한다.
+
+### 컴포넌트를 사용하는 이유
+
+- UI를 재사용할 수 있다.
+- 코드가 읽기 쉽고 유지보수가 쉬워진다.
+- 상태(state), 이벤트, 로직 등을 **각각의 컴포넌트 내부에서 독립적으로 관리**할 수 있다.
+
+### 컴포넌트의 기본 구조
+
+```html
+<!-- MyComponent.vue -->
+<template>
+  <div>
+    <h2>{{ message }}</h2>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'MyComponent',
+    data() {
+      return {
+        message: 'Hello from component!',
+      };
+    },
+  };
+</script>
+
+<style scoped>
+  h2 {
+    color: blue;
+  }
+</style>
+```
+
+- `<template>`: 화면에 보여질 HTML 구조
+- `<script>`: 컴포넌트의 로직, 상태(data), 메서드 등
+- `<style scoped>`: 해당 컴포넌트에만 적용되는 CSS
+
+### 컴포넌트 등록 & 사용 방법
+
+#### 1. 컴포넌트 등록 (App.vue 등)
+
+```html
+<script>
+  import MyComponent from './components/MyComponent.vue';
+
+  export default {
+    components: {
+      MyComponent,
+    },
+  };
+</script>
+```
+
+#### 2. 템플릿에서 사용
+
+```html
+<template>
+  <div>
+    <MyComponent />
+  </div>
+</template>
+```
+
+### 컴포넌트의 종류
+
+#### 1. 전역 컴포넌트
+
+Vue 애플리케이션 전체에서 사용할 수 있는 컴포넌트
+
+```js
+import Vue from 'vue';
+import MyComponent from './MyComponent.vue';
+
+Vue.component('MyComponent', MyComponent);
+```
+
+#### 2. 로컬 컴포넌트
+
+특정 컴포넌트 파일 내에서만 사용하는 컴포넌트
+
+```js
+export default {
+  components: {
+    MyComponent,
+  },
+};
+```
