@@ -1,18 +1,31 @@
 <template>
-  <Modal :원룸들="원룸들" :누른거="누른거" :모달창열렸니="모달창열렸니" />
+  <Modal
+    @closeModal="모달창열렸니 = false"
+    :원룸들="원룸들"
+    :누른거="누른거"
+    :모달창열렸니="모달창열렸니"
+  />
 
   <div class="menu">
     <a v-for="(a, i) in menus" :key="i">{{ a }}</a>
   </div>
 
   <Discount />
-  <Card :room="원룸들[i]" v-for="(원룸, i) in 원룸들" :key="원룸" />
+  <Card
+    @openModal="
+      모달창열렸니 = true;
+      누른거 = $event;
+    "
+    :room="원룸들[i]"
+    v-for="(원룸, i) in 원룸들"
+    :key="원룸"
+  />
 </template>
 
 <script>
 import data from './assets/oneroom.js';
 import CardComp from './CardComp.vue';
-import Discount from './Discount.vue';
+import Discount from './DiscountBanner.vue';
 import Modal from './Modal.vue';
 
 export default {

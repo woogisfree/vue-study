@@ -402,3 +402,53 @@ export default {
 
 - props로 받은 데이터는 data()에 없어도 바로 바인딩 가능하다.
 - 마치 data처럼 template 안에서 자유롭게 사용 가능하다.
+
+## ✅ emit
+
+- Vue에서는 자식 컴포넌트가 부모 컴포턴트의 데이터를 직접 변경할 수 없다.
+- `props`로 전달된 데이터는 읽기 전용이기 때문에 변경하면 vue가 경고를 띄운다.
+- 그래서 부모 컴포넌트의 데이터를 변경하려면, 자식 컴포넌트는 `$emit()` 메서드를 통해 부모 컴포넌트에게 데이터를 변경해달라고 요청해야한다. 이를 **커스텀 이벤트(Custom Event)** 라고 한다.
+
+### $emit 사용법 (자식 컴포넌트가 부모 컴포넌트에게 데이터 전달)
+
+```html
+<!-- 자식 컴포넌트 : openModal 이라는 커스텀 이벤트를 부모에게 전송 -->
+<h4 @click="$emit('openModal')">제목</h4>
+
+<!-- 부모 컴포넌트 : 자식이 보낸 openModal 이벤트를 수신해서 원하는 동작 실행 -->
+<Card @openModal="모달창열렸니 = true" />
+```
+
+#### $emit 으로 자료 전달도 가능하다.
+
+```html
+<!-- 자식 컴포넌트 -->
+<h4 @click="$emit('openModal', 원룸.id)">제목</h4>
+```
+
+- `$emit('이벤트명', 전달할 자료)` 형태
+- 두 번째 인자로 어떤 값이든 보낼 수 있음 (숫자, 문자열, 객체 등)
+
+```html
+<Card @openModal="모달창열렸니 = true; 누른거 = $event" />
+```
+
+- `$event`는 자식이 보낸 두 번째 인자값
+
+#### 메서드 안에서도 사용 가능하다.
+
+```js
+<template>
+  <h4 @click="클릭시()">제목</h4>
+</template>
+
+<script>
+export default {
+  methods: {
+    클릭시() {
+      this.$emit('openModal', this.원룸.id);
+    }
+  }
+}
+</script>
+```
