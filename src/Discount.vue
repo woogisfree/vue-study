@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'DiscountBanner',
+  name: 'Discount',
 };
 </script>
 
