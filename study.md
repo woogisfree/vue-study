@@ -452,3 +452,84 @@ export default {
 }
 </script>
 ```
+
+## ✅ 사용자 입력 처리 및 v-model 정리
+
+Vue에서는 `<input>`, `<textarea>`, `<select>` 등의 입력 요소에서 사용자가 입력한 값을 `data()`에 저장하고, 이를 이용해 동적인 UI를 만들 수 있다.
+
+### 1. 입력값을 `data`에 저장하는 기본 방식
+
+```html
+<input @input="month = $event.target.value" />
+```
+
+- @input: 사용자가 값을 입력할 때마다 실행되는 이벤트
+- $event: 이벤트 객체 (javascript의 e와 같음)
+- $event.target.value: input 태그 안의 값
+- month: data()에 정의된 변수. 여기에 값이 실시간으로 저장됨
+
+```js
+data() {
+  return {
+    month: 0
+  }
+}
+```
+
+### 2. 총 가격 계산 기능 예시
+
+```html
+<p>총 가격: {{ month * 원룸들[누른거].price }}원</p>
+```
+
+- 사용자가 month에 입력한 숫자에 따라 총 가격이 자동으로 계산됨
+
+### 3. 더 간단한 방식: v-model
+
+```html
+<input v-model="month" />
+```
+
+- v-model은 `@input + :value`를 합친 문법
+- 데이터 바인딩과 이벤트 핸들링을 동시에 처리
+- 입력값이 data.month에 자동으로 저장됨
+
+### 4. 숫자로 자동 변환: v-model.number
+
+```html
+<input v-model.number="month" />
+```
+
+- 사용자가 "123"을 입력하면 "123" -> 123 으로 자동 변환해 저장
+- 기본적으로 `<input>` 입력값은 모두 문자열로 들어오기 때문에 숫자 처리할 때는 .number modifier 사용
+
+### 5. 다른 요소에서도 사용 가능
+
+| 태그 종류                 | 설명                             |
+| ------------------------- | -------------------------------- |
+| `<textarea>`              | 긴 텍스트 입력 필드              |
+| `<select>`                | 드롭다운 옵션                    |
+| `<input type="checkbox">` | true/false 값을 바인딩할 때 유용 |
+| `<input type="radio">`    | 라디오 버튼 그룹                 |
+
+### 예시 전체 코드 (Modal.vue 일부)
+
+```html
+<template>
+  <div>
+    <input v-model.number="month" />
+    <p>총 가격: {{ month * 원룸들[누른거].price }}원</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    props: ['원룸들', '누른거'],
+    data() {
+      return {
+        month: 1,
+      };
+    },
+  };
+</script>
+```
