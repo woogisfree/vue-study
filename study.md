@@ -594,3 +594,97 @@ Vue에서는 간단한 검사는 watch로 충분하지만, 이메일 형식, 비
 | `vee-validate` | Vue 전용 검증 라이브러리                             |
 | `vuelidate`    | 컴포지션 API 친화적                                  |
 | `yup`          | 다양한 검증 스키마 지원(vee-validate와 함께 자주 씀) |
+
+## ✅ UI 등장/퇴장시 애니메이션 주는 방법
+
+Vue에서는 화면에 등장하거나 사라지는 요소에 부드러운 애니메이션 효과를 줄 수 있다.
+
+### 방법1. 순수 CSS로 애니메이션 주기
+
+1. 애니메이션 시작 전 class 디자인
+2. 애니메이션 동작 후 class 디자인
+3. 조건에 따라 애니메이션 동작 후 class 부착
+
+```html
+<div :class="{ '클래스명': 조건 }"></div>
+```
+
+4. 시작 전 class 명에 transition 속성을 주면 부드러운 애니메이션 효과 완성
+
+```html
+<template>
+  <!-- 모달창열렸니 가 true 일때만 .end 부착 -->
+  <div class="start" :class="{ end : 모달창열렸니 }">
+    <Modal
+      @closeModal="모달창열렸니 = false"
+      :원룸들="원룸들"
+      :누른거="누른거"
+      :모달창열렸니="모달창열렸니"
+    />
+  </div>
+</template>
+
+<style>
+  .start {
+    opacity: 0;
+    transition: all 1s;
+  }
+
+  .end {
+    opacity: 1;
+  }
+</style>
+```
+
+### 방법2. Vue에서 제공하는 `<Transition>` 태그 사용
+
+Vue가 제공하는 `<Transition>` 태그를 사용하면 UI 등장/퇴장시 애니메이션을 자동으로 처리할 수 있다.
+
+1. `<Transition name="작명">` 태그로 UI를 감싼다.
+2. 해당 name 기반으로 CSS 클래스를 정의한다.
+
+| 단계                 | 클래스명           |
+| -------------------- | ------------------ |
+| 등장 시작 전         | .작명-enter-from   |
+| 등장 중(transaition) | .작명-enter-active |
+| 등장 완료 후         | .작명-enter-to     |
+| 퇴장 시작 전         | .작명-leave-from   |
+| 퇴장 중              | .작명-leave-active |
+| 퇴장 완료 후         | .작명-leave-to     |
+
+예시
+
+```html
+<template>
+  <Transition name="fade">
+    <Modal
+      @closeModal="모달창열렸니 = false"
+      :원룸들="원룸들"
+      :누른거="누른거"
+      :모달창열렸니="모달창열렸니"
+    />
+  </Transition>
+</template>
+
+<style>
+  .fade-enter-from {
+    opacity: 0;
+  }
+  .fade-enter-active {
+    transition: all 1s;
+  }
+  .fade-enter-to {
+    opacity: 1;
+  }
+
+  .fade-leave-from {
+    opacity: 1;
+  }
+  .fade-leave-active {
+    transition: all 1s;
+  }
+  .fade-leave-to {
+    opacity: 0;
+  }
+</style>
+```
