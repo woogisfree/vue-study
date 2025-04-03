@@ -13,6 +13,9 @@
   </div>
 
   <Discount />
+  <button @click="priceSort">가격순정렬</button>
+  <button @click="sortBack">되돌리기</button>
+
   <Card
     @openModal="
       모달창열렸니 = true;
@@ -35,8 +38,9 @@ export default {
   data() {
     return {
       // Define any data properties here
+      원룸들오리지널: [...data],
       누른거: 0,
-      원룸들: data,
+      원룸들: [...data],
       모달창열렸니: false,
       신고수: [0, 0, 0, 0, 0, 0],
       menus: ['Home', 'Shop', 'About'],
@@ -47,6 +51,14 @@ export default {
     // Define any methods here
     increase() {
       this.신고수[0]++;
+    },
+    sortBack() {
+      this.원룸들 = [...this.원룸들오리지널];
+    },
+    priceSort() {
+      this.원룸들.sort(function (a, b) {
+        return a.price - b.price;
+      });
     },
   },
   components: {
