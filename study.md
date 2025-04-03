@@ -780,7 +780,7 @@ methods: {
 
 1. Creation (생성)
 2. Mounting (DOM 장착)
-3. Updating (재랜더링)
+3. Updating (재렌더링)
 4. Unmounting (제거)
 
 ### 주요 Lifecycle Hook 목록
