@@ -22,6 +22,15 @@ export default {
       month: 1,
     };
   },
+  watch: {
+    // watch: { 감시할데이터() {} } - 감시할데이터가 변경될 때마다 watcher 실행됨
+    month(a) {
+      if (isNaN(a)) {
+        alert('숫자만 입력해');
+        this.month = 1;
+      }
+    },
+  },
   props: {
     원룸들: Array,
     누른거: Number,
