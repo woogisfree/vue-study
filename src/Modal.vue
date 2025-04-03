@@ -22,6 +22,11 @@ export default {
       month: 1,
     };
   },
+  beforeUpdate() {
+    if (this.month == 2) {
+      alert('2개월 이상 가능합니다.');
+    }
+  },
   watch: {
     // watch: { 감시할데이터() {} } - 감시할데이터가 변경될 때마다 watcher 실행됨
     month(a) {

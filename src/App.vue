@@ -12,7 +12,7 @@
     <a v-for="(a, i) in menus" :key="i">{{ a }}</a>
   </div>
 
-  <Discount />
+  <Discount v-if="showDiscount == true" :amount="amount" />
   <button @click="priceSort">가격순정렬</button>
   <button @click="sortBack">되돌리기</button>
 
@@ -38,6 +38,8 @@ export default {
   data() {
     return {
       // Define any data properties here
+      amount: 30,
+      showDiscount: true,
       원룸들오리지널: [...data],
       누른거: 0,
       원룸들: [...data],
@@ -46,6 +48,9 @@ export default {
       menus: ['Home', 'Shop', 'About'],
       products: ['역삼동원룸', '천호동원룸', '마포구원룸'],
     };
+  },
+  mounted() {
+    this.startDiscountTimer();
   },
   methods: {
     // Define any methods here
@@ -60,7 +65,18 @@ export default {
         return a.price - b.price;
       });
     },
+    startDiscountTimer() {
+      const timer = setInterval(() => {
+        if (this.amount > 0) {
+          this.amount--;
+        } else {
+          clearInterval(timer);
+          this.showDiscount = false;
+        }
+      }, 1000);
+    },
   },
+
   components: {
     Discount,
     Modal,

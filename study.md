@@ -770,3 +770,58 @@ methods: {
   }
 }
 ```
+
+## ✅ Lifecycle Hook
+
+- Vue 컴포넌트는 생성되고, 화면에 보여지고, 데이터가 바뀌고, 사라지는 일련의 과정을 거친다.
+- 이 과정을 Lifecycle(생명주기)라고 하며, 각 단계에서 실행할 수 있는 특별한 메서드를 **Lifecycle Hook**이라고 부른다.
+
+### Lifecycle 의 주요 단계
+
+1. Creation (생성)
+2. Mounting (DOM 장착)
+3. Updating (재랜더링)
+4. Unmounting (제거)
+
+### 주요 Lifecycle Hook 목록
+
+| Hook              | 실행 시점                                            |
+| ----------------- | ---------------------------------------------------- |
+| `beforeCreate()`  | 인스턴스 생성 직전, `data`, `methods` 아직 준비 안됨 |
+| `created()`       | 인스턴스 생성 후, `data`, `methods` 접근 가능        |
+| `beforeMount()`   | 템플릿이 실제 DOM에 장착되기 직전                    |
+| `mounted()`       | DOM에 컴포넌트가 완전히 삽입된 직후                  |
+| `beforeUpdate()`  | 반응형 데이터가 변경되어 DOM 업데이트 직전           |
+| `updated()`       | DOM이 다시 렌더링된 직후                             |
+| `beforeUnmount()` | 컴포넌트가 제거되기 직전                             |
+| `unmounted()`     | 컴포넌트가 제거된 직후                               |
+
+예시
+
+```js
+export default {
+  data() {
+    return {
+      message: 'Hello Vue!',
+    };
+  },
+  created() {
+    console.log('데이터와 메서드가 준비되었습니다.');
+  },
+  mounted() {
+    console.log('컴포넌트가 화면에 렌더링되었습니다.');
+  },
+  beforeUpdate() {
+    console.log('데이터가 변경되어 DOM이 업데이트 되기 전입니다.');
+  },
+  updated() {
+    console.log('DOM이 업데이트 되었습니다.');
+  },
+  beforeUnmount() {
+    console.log('컴포넌트가 곧 제거됩니다.');
+  },
+  unmounted() {
+    console.log('컴포넌트가 제거되었습니다.');
+  },
+};
+```
